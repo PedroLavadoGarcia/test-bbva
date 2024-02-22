@@ -1,4 +1,4 @@
-export default function shuffle(array) {
+export function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
 
@@ -16,4 +16,15 @@ export default function shuffle(array) {
   }
 
   return array;
+}
+
+export function stopAllTimeout() {
+  var highestTimeoutId = setTimeout(";");
+  for (var i = 0; i < highestTimeoutId; i++) {
+    clearTimeout(i);
+  }
+}
+
+export function vibrate() {
+  window.navigator.vibrate([1000]);
 }

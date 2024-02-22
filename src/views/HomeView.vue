@@ -1,30 +1,29 @@
 <template>
-  <div class="hello">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <v-sheet width="300" class="mx-auto">
-      <v-form @submit.prevent>
+  <v-container>
+    <div class="hello">
+      <v-sheet width="300" class="mx-auto text-center">
+        <img alt="Vue logo" src="../assets/logo.png" />
         <v-text-field
           v-model="firstName"
           :rules="rules"
           label="Add name"
         ></v-text-field>
-        <v-btn
-          type="submit"
-          :disabled="!firstName"
-          block
-          class="mt-2"
-          @click="join"
+        <v-btn :disabled="!firstName" block class="mt-2" @click="join"
           >Join</v-btn
         >
-      </v-form>
-    </v-sheet>
-  </div>
+      </v-sheet>
+    </div>
+  </v-container>
 </template>
 
 <script>
 import router from "@/router";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "HomeView",
+
+  components: {},
   data: () => ({
     firstName: "",
     rules: [
@@ -41,5 +40,5 @@ export default {
       router.push("/game");
     },
   },
-};
+});
 </script>

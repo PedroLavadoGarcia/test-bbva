@@ -1,12 +1,11 @@
-import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount, shallowMount } from "@vue/test-utils";
 import GameView from "@/views/GameView.vue";
 
 describe("GameView.vue", () => {
   it("wrapper GameView.vue", () => {
     const wrapper = shallowMount(GameView);
     expect(wrapper.exists()).toBe(true);
-    expect(wrapper.find(".text-sm-right").exists()).toBe(true);
+    expect(wrapper.find(".text-right").exists()).toBe(true);
   });
   it("addPoint low GameView.vue", () => {
     const $store = {

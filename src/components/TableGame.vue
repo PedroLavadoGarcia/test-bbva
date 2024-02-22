@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="text-center">
     <div>{{ timeLeft }} seconds left</div>
     <div class="text-h4 pb-6">{{ titleGame }}</div>
     <div class="d-flex flex-wrap">
@@ -21,14 +21,21 @@
 
 <script>
 import { constant } from "@/common/constant";
-import shuffle from "@/common/functions";
+import { shuffle, stopAllTimeout, vibrate } from "@/common/functions";
 export default {
   name: "TableGame",
+  data: () => ({
+    timeLeft: null,
+    clickItem: null,
+    numberSearch: null,
+    viewMode: true,
+    list: [],
+  }),
   computed: {
     titleGame() {
       return this.viewMode
         ? "Memorize the cards"
-        : "Where is the number " + this.numberSearch + "?";
+        : `Where is the number ${this.numberSearch}?`;
     },
     validateTest() {
       return this.clickItem === this.numberSearch ? "bg-green" : "bg-red";
@@ -41,18 +48,10 @@ export default {
         return 2000;
       } else if (this.$store.state.level === constant.MEDIUM_TEXT) {
         return 5000;
-      } else {
-        return 10000;
       }
+      return 10000;
     },
   },
-  data: () => ({
-    timeLeft: null,
-    clickItem: null,
-    numberSearch: null,
-    viewMode: true,
-    list: [],
-  }),
   watch: {
     time() {
       this.initGame();
@@ -68,11 +67,13 @@ export default {
         this.clickItem = number;
         if (this.clickItem === this.numberSearch) {
           this.$emit("add");
+        } else {
+          vibrate();
         }
       }
     },
     initGame() {
-      this.stopAllTimeout();
+      stopAllTimeout();
       this.timeLeft = this.time / 1000;
       this.viewMode = true;
       this.clickItem = null;
@@ -90,12 +91,6 @@ export default {
     timeLeftDown() {
       if (this.timeLeft) {
         setTimeout(() => (this.timeLeft--, this.timeLeftDown()), 1000);
-      }
-    },
-    stopAllTimeout() {
-      var highestTimeoutId = setTimeout(";");
-      for (var i = 0; i < highestTimeoutId; i++) {
-        clearTimeout(i);
       }
     },
   },

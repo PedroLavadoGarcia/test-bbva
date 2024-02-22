@@ -1,9 +1,9 @@
 <template>
   <div class="game">
     <ToolbarGame></ToolbarGame>
-    <div class="text-h5 text-sm-right pr-2 pt-6">Point: {{ points }}</div>
+    <div class="text-h5 text-right pr-2 pt-6">Point: {{ points }}</div>
 
-    <div v-if="!start">
+    <div v-if="!start" class="text-center">
       <div class="py-4 text-h6">Click the play button for a new game</div>
       <v-btn elevation="2" color="info" @click="start = true">Play</v-btn>
     </div>
