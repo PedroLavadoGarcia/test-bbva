@@ -18,7 +18,7 @@ export function shuffle(array) {
   return array;
 }
 
-export function stopAllTimeout(timeOutView) {
+export function stopAllTimeoutByArray(timeOutView) {
   for (var i = 0; i < timeOutView.length; i++) {
     clearTimeout(timeOutView[i]);
   }

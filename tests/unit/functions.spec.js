@@ -1,4 +1,4 @@
-import { shuffle, stopAllTimeout, randomElements } from "@/common/functions";
+import { shuffle, randomElements } from "@/common/functions";
 
 describe("functions.js", () => {
   it("shuffle functions.js", () => {

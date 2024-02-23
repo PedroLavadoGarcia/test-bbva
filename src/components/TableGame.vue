@@ -23,7 +23,7 @@
 import { constant } from "@/common/constant";
 import {
   shuffle,
-  stopAllTimeout,
+  stopAllTimeoutByArray,
   vibrate,
   randomElements,
 } from "@/common/functions";
@@ -71,7 +71,7 @@ export default {
       }
     },
     initGame() {
-      stopAllTimeout(this.timeOutView);
+      stopAllTimeoutByArray(this.timeOutView);
       this.timeLeft = this.time / constant.SECOND;
       this.viewMode = true;
       this.clickItems = [];
