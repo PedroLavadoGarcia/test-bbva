@@ -6,4 +6,8 @@ export const constant = {
   LOW_TEXT: "Low",
   MEDIUM_TEXT: "Medium",
   HIGH_TEXT: "High",
+  TIME_HIGH_LEVEL: 2000,
+  TIME_MEDIUM_LEVEL: 5000,
+  TIME_LOW_LEVEL: 10000,
+  SECOND: 1000,
 };

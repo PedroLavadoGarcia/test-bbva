@@ -18,8 +18,8 @@ describe("TableGame.vue", () => {
         },
       },
       props: {
-        clickItem: null,
-        numberSearch: null,
+        clickItems: [],
+        numbersSearch: [],
         viewMode: true,
         list: [],
       },
@@ -34,8 +34,8 @@ describe("TableGame.vue", () => {
         },
       },
       props: {
-        clickItem: null,
-        numberSearch: null,
+        clickItems: [],
+        numbersSearch: [],
         viewMode: true,
         list: [],
       },
@@ -52,13 +52,51 @@ describe("TableGame.vue", () => {
         },
       },
       props: {
-        clickItem: null,
-        numberSearch: null,
+        clickItems: [],
+        numbersSearch: [],
         viewMode: false,
         list: [],
       },
     });
+    wrapper.vm.numbersSearch = [4, 5, 6];
+    wrapper.vm.viewMode = false;
     wrapper.vm.clickValue(4);
-    expect(wrapper.vm.clickItem).toBe(null);
+    expect(wrapper.vm.clickItems.length).toBe(1);
+  });
+  it("validateTest TableGame.vue return 'bg-green'", () => {
+    const wrapper = shallowMount(TableGame, {
+      global: {
+        mocks: {
+          $store,
+        },
+      },
+      props: {
+        clickItems: [],
+        numbersSearch: [],
+        viewMode: false,
+        list: [],
+      },
+    });
+    wrapper.vm.numbersSearch = [4, 5, 6];
+    const result = wrapper.vm.validateTest(4);
+    expect(result).toBe("bg-green");
+  });
+
+  it("validateTest TableGame.vue return 'bg-red'", () => {
+    const wrapper = shallowMount(TableGame, {
+      global: {
+        mocks: {
+          $store,
+        },
+      },
+      props: {
+        clickItems: [],
+        numbersSearch: [],
+        viewMode: false,
+        list: [],
+      },
+    });
+    const result = wrapper.vm.validateTest(4);
+    expect(result).toBe("bg-red");
   });
 });

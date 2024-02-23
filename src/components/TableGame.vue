@@ -5,15 +5,15 @@
     <div class="d-flex flex-wrap">
       <div
         class="celda text-h3"
-        :class="clickItem === number ? validateTest : ''"
+        :class="clickItems.includes(number) ? validateTest(number) : ''"
         v-for="(number, index) in list"
         :key="index"
         @click="clickValue(number)"
       >
-        {{ viewMode || clickItem === number ? number : "?" }}
+        {{ viewMode || clickItems.includes(number) ? number : "?" }}
       </div>
     </div>
-    <div v-if="clickItem" class="py-2">
+    <div v-if="clickItems.length === 3" class="py-2">
       <v-btn elevation="2" color="info" @click="initGame()">Play again</v-btn>
     </div>
   </div>
@@ -21,13 +21,18 @@
 
 <script>
 import { constant } from "@/common/constant";
-import { shuffle, stopAllTimeout, vibrate } from "@/common/functions";
+import {
+  shuffle,
+  stopAllTimeout,
+  vibrate,
+  randomElements,
+} from "@/common/functions";
 export default {
   name: "TableGame",
   data: () => ({
     timeLeft: null,
-    clickItem: null,
-    numberSearch: null,
+    clickItems: [],
+    numbersSearch: [],
     viewMode: true,
     list: [],
   }),
@@ -35,21 +40,18 @@ export default {
     titleGame() {
       return this.viewMode
         ? "Memorize the cards"
-        : `Where is the number ${this.numberSearch}?`;
-    },
-    validateTest() {
-      return this.clickItem === this.numberSearch ? "bg-green" : "bg-red";
+        : `Where is the numbers ${this.numbersSearch}?`;
     },
     name() {
       return this.$store.state.name ? this.$store.state.name : "Nombre";
     },
     time() {
       if (this.$store.state.level === constant.HIGH_TEXT) {
-        return 2000;
+        return constant.TIME_HIGH_LEVEL;
       } else if (this.$store.state.level === constant.MEDIUM_TEXT) {
-        return 5000;
+        return constant.TIME_MEDIUM_LEVEL;
       }
-      return 10000;
+      return constant.TIME_LOW_LEVEL;
     },
   },
   watch: {
@@ -63,9 +65,9 @@ export default {
   },
   methods: {
     clickValue(number) {
-      if (!this.clickItem && !this.viewMode) {
-        this.clickItem = number;
-        if (this.clickItem === this.numberSearch) {
+      if (this.clickItems.length < 3 && !this.viewMode) {
+        this.clickItems.push(number);
+        if (this.numbersSearch.includes(number)) {
           this.$emit("add");
         } else {
           vibrate();
@@ -74,15 +76,14 @@ export default {
     },
     initGame() {
       stopAllTimeout();
-      this.timeLeft = this.time / 1000;
+      this.timeLeft = this.time / constant.SECOND;
       this.viewMode = true;
-      this.clickItem = null;
+      this.clickItems = [];
       this.list = shuffle(this.list);
       setTimeout(
         () => (
           (this.viewMode = false),
-          (this.numberSearch =
-            this.list[Math.floor(Math.random() * this.list.length)])
+          (this.numbersSearch = randomElements(this.list, 3))
         ),
         this.time
       );
@@ -92,6 +93,9 @@ export default {
       if (this.timeLeft) {
         setTimeout(() => (this.timeLeft--, this.timeLeftDown()), 1000);
       }
+    },
+    validateTest(number) {
+      return this.numbersSearch.includes(number) ? "bg-green" : "bg-red";
     },
   },
 };

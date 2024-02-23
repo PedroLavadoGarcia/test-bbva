@@ -28,3 +28,7 @@ export function stopAllTimeout() {
 export function vibrate() {
   window.navigator.vibrate([1000]);
 }
+
+export function randomElements(array, quantity) {
+  return shuffle([...array]).slice(0, quantity);
+}
