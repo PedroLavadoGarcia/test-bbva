@@ -2,7 +2,12 @@
   <v-container>
     <div class="hello">
       <v-sheet width="300" class="mx-auto text-center">
-        <img alt="Vue logo" src="../assets/logo.png" />
+        <v-icon
+          class="my-2"
+          icon="mdi-nintendo-game-boy"
+          size="150"
+          color="blue-darken-4"
+        />
         <v-text-field
           v-model="firstName"
           :rules="rules"

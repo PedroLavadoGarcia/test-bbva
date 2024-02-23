@@ -30,6 +30,7 @@ import {
 export default {
   name: "TableGame",
   data: () => ({
+    timeOutView: [],
     timeLeft: null,
     clickItems: [],
     numbersSearch: [],
@@ -46,12 +47,7 @@ export default {
       return this.$store.state.name ? this.$store.state.name : "Nombre";
     },
     time() {
-      if (this.$store.state.level === constant.HIGH_TEXT) {
-        return constant.TIME_HIGH_LEVEL;
-      } else if (this.$store.state.level === constant.MEDIUM_TEXT) {
-        return constant.TIME_MEDIUM_LEVEL;
-      }
-      return constant.TIME_LOW_LEVEL;
+      return constant.LEVEL_GAME[this.$store.state.level].TIME;
     },
   },
   watch: {
@@ -75,23 +71,27 @@ export default {
       }
     },
     initGame() {
-      stopAllTimeout();
+      stopAllTimeout(this.timeOutView);
       this.timeLeft = this.time / constant.SECOND;
       this.viewMode = true;
       this.clickItems = [];
       this.list = shuffle(this.list);
-      setTimeout(
-        () => (
-          (this.viewMode = false),
-          (this.numbersSearch = randomElements(this.list, 3))
-        ),
-        this.time
+      this.timeOutView.push(
+        setTimeout(
+          () => (
+            (this.viewMode = false),
+            (this.numbersSearch = randomElements(this.list, 3))
+          ),
+          this.time
+        )
       );
       this.timeLeftDown();
     },
     timeLeftDown() {
       if (this.timeLeft) {
-        setTimeout(() => (this.timeLeft--, this.timeLeftDown()), 1000);
+        this.timeOutView.push(
+          setTimeout(() => (this.timeLeft--, this.timeLeftDown()), 1000)
+        );
       }
     },
     validateTest(number) {

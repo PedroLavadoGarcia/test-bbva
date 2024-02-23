@@ -31,13 +31,8 @@ export default {
   }),
   methods: {
     addPoint() {
-      if (this.$store.state.level === constant.HIGH_TEXT) {
-        this.points = this.points + constant.HIGH_POINT;
-      } else if (this.$store.state.level === constant.MEDIUM_TEXT) {
-        this.points = this.points + constant.MEDIUM_POINT;
-      } else {
-        this.points = this.points + constant.LOW_POINT;
-      }
+      this.points =
+        this.points + constant.LEVEL_GAME[this.$store.state.level].POINTS;
     },
   },
 };

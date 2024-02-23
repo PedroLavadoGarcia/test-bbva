@@ -26,7 +26,7 @@ export default {
     },
   },
   data: () => ({
-    level: constant.LOW_TEXT,
+    level: constant.LEVEL_GAME.LOW.TEXT,
     items: constant.LIST_LEVELS,
   }),
   watch: {

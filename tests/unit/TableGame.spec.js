@@ -5,7 +5,7 @@ describe("TableGame.vue", () => {
   const $store = {
     state: {
       name: "",
-      level: "Low",
+      level: "LOW",
       list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     },
     commit: jest.fn(),
