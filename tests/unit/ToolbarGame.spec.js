@@ -1,14 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import ToolbarGame from "@/components/ToolbarGame.vue";
 import { constant } from "@/common/constant";
-// import { createVuetify } from "vuetify";
-// import * as components from "vuetify/components";
-// import * as directives from "vuetify/directives";
-
-// const vuetify = createVuetify({
-//   components,
-//   directives,
-// });
 
 global.ResizeObserver = require("resize-observer-polyfill");
 
@@ -27,7 +19,6 @@ describe("ToolbarGame.vue", () => {
         mocks: {
           $store,
         },
-        // plugins: [vuetify],
       },
       props: {
         level: constant.LOW_TEXT,
