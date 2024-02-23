@@ -13,7 +13,12 @@
           :rules="rules"
           label="Add name"
         ></v-text-field>
-        <v-btn :disabled="!firstName" block class="mt-2" @click="join"
+        <v-btn
+          id="joinButton"
+          :disabled="!firstName"
+          block
+          class="mt-2"
+          @click="join()"
           >Join</v-btn
         >
       </v-sheet>
@@ -41,6 +46,7 @@ export default defineComponent({
   }),
   methods: {
     join() {
+      console.log("entro");
       this.$store.dispatch("setName", this.firstName);
       router.push("/game");
     },

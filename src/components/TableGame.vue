@@ -13,8 +13,15 @@
         {{ viewMode || clickItems.includes(number) ? number : "?" }}
       </div>
     </div>
-    <div v-if="clickItems.length === 3" class="py-2">
-      <v-btn elevation="2" color="info" @click="initGame()">Play again</v-btn>
+    <div class="py-2">
+      <v-btn
+        :disabled="clickItems.length != 3"
+        id="again"
+        elevation="2"
+        color="info"
+        @click="initGame()"
+        >Play again</v-btn
+      >
     </div>
   </div>
 </template>

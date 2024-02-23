@@ -79,4 +79,30 @@ describe("GameView.vue", () => {
     wrapper.vm.addPoint();
     expect(wrapper.vm.points).toBe(30);
   });
+  it("Pressing play button", async () => {
+    const $store = {
+      state: {
+        name: "",
+        level: "HIGH",
+        list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      },
+      commit: jest.fn(),
+    };
+    const wrapper = shallowMount(GameView, {
+      global: {
+        mocks: {
+          $store,
+        },
+      },
+      props: {
+        points: 0,
+        start: false,
+        firstName: "",
+      },
+    });
+    const playButton = wrapper.find("#play");
+    playButton.trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.start).toBe(true);
+  });
 });

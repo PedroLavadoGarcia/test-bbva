@@ -5,7 +5,9 @@
 
     <div v-if="!start" class="text-center">
       <div class="py-4 text-h6">Click the play button for a new game</div>
-      <v-btn elevation="2" color="info" @click="start = true">Play</v-btn>
+      <v-btn id="play" elevation="2" color="info" @click="start = true"
+        >Play</v-btn
+      >
     </div>
     <table-game v-else @add="addPoint()"></table-game>
   </div>
